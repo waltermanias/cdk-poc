@@ -1,4 +1,3 @@
-
 # Welcome to External API Call project!
 
 This is a project that generate a **CloudFormation** template and deploy it using **AWS CDK** (AWS Cloud Development Kit)
@@ -11,7 +10,7 @@ To work with AWS CDK, you must have an AWS account and credentials and have inst
 
 If you already have Node.js, installl the AWS CDK Toolkit:
 
-    npm install -g aws-cdk  
+    npm install -g aws-cdk
 
 Test the installation by issuing `cdk --version`.
 
@@ -22,14 +21,23 @@ You also need TypeScript itself. If you don't already have it, you can install i
 Check if you have the AWS CLI installed and configured.
 
 #### Tip
+
 If you have the [AWS CLI](https://aws.amazon.com/cli/) installed, the simplest way to set up your workstation with your AWS credentials is to open a command prompt and type:
 
     aws configure
 
+## First steps
+
+To deploy the project, you must run the next commands.
+
+- `npm install` install all dependencies
+- The Lambda function has to be deployed with `node_modules` folder. Open a terminal and navigate to the next folder `/lib/lambda` and run `npm install`.
+
 ## CDK Useful commands
-*  `npm run build` compile typescript to js
-*  `npm run watch` watch for changes and compile
-*  `npm run test` perform the jest unit tests
-*  `cdk deploy` deploy this stack to your default AWS account/region
-*  `cdk diff` compare deployed stack with current state
-*  `cdk synth` emits the synthesized CloudFormation template
+
+- `npm run build` compile typescript to js
+- `npm run watch` watch for changes and compile
+- `npm run test` perform the jest unit tests
+- `cdk deploy` deploy this stack to your default AWS account/region
+- `cdk diff` compare deployed stack with current state
+- `cdk synth` emits the synthesized CloudFormation template
