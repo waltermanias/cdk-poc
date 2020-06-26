@@ -1,6 +1,8 @@
 *.js
 !jest.config.js
+
 !/lib/lambda/*.js
+/lib/lambda/test.js
 *.d.ts
 node_modules
 
@@ -11,3 +13,5 @@ cdk.out
 # Parcel build directories
 .cache
 .build
+
+
