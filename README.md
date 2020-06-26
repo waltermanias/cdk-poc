@@ -45,8 +45,9 @@ The deploy process is very streightforward. Just run the next command:
 ## Troubleshotting
 
 - The code doesn't work. If you run all mentioned steps, check the next common issue.
-  _ Run in the terminal the next command `cdk --version`.
-  _ Ensure that all dependant packages have the same version. You can check it into the `package.json` file at the root of the project. \* For example, currently, the CDK's version I have is **1.47.0**. And if I check in the package.json the AWS dependendies (always starts with @aws-cdk/\***\*) all of them have the same version ("@aws-cdk/aws-apigateway": **"1.47.0"**, "@aws-cdk/aws-iam": **"1.47.0"\*\*).
+  - Run in the terminal the next command `cdk --version`.
+  - Ensure that all dependant packages have the same version. You can check it into the `package.json` file at the root of the project.
+  - For example, currently, the CDK's version I have is **1.47.0**. And if I check in the package.json the AWS dependendies (always starts with @aws-cdk/package-name) all of them have the same version ("@aws-cdk/aws-apigateway": **"1.47.0"**, "@aws-cdk/aws-iam": **"1.47.0"**).
 
 ## CDK Useful commands
 
