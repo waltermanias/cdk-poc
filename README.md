@@ -33,6 +33,12 @@ To deploy the project, you must run the next commands.
 - `npm install` install all dependencies
 - The Lambda function has to be deployed with `node_modules` folder. Open a terminal and navigate to the next folder `/lib/lambda` and run `npm install`.
 
+## Troubleshotting
+
+- The code doesn't work. If you run all mentioned steps, check the next common issue.
+  _ Run in the terminal the next command `cdk --version`.
+  _ Ensure that all dependant packages have the same version. You can check it into the `package.json` file at the root of the project. \* For example, currently, the CDK's version I have is **1.47.0**. And if I check in the package.json the AWS dependendies (always starts with @aws-cdk/\***\*) all of them have the same version ("@aws-cdk/aws-apigateway": **"1.47.0"**, "@aws-cdk/aws-iam": **"1.47.0"\*\*).
+
 ## CDK Useful commands
 
 - `npm run build` compile typescript to js

@@ -1,9 +1,13 @@
-import * as cdk from '@aws-cdk/core';
+import * as cdk from '@aws-cdk/core'
+import { RestApi, EndpointType } from '@aws-cdk/aws-apigateway'
+import { ApiGatewayBuilder } from './builders/api-gateway-builder'
 
 export class ExternalApiCallStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+    super(scope, id, props)
 
-    // The code that defines your stack goes here
+    // 1. Build the API Gateway definition.
+    const builder = new ApiGatewayBuilder(this, props)
+    builder.build()
   }
 }
