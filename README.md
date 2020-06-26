@@ -38,9 +38,10 @@ To deploy the project, you must run the next commands.
 The deploy process is very streightforward. Just run the next command:
 
 1.  Open a terminal and navigate to the project root.
-2.  Execute `cdk deploy`.
-3.  You will have to confirm the resources that you're going to deploy, specially related to the security.
-4.  If you go to AWS Console and open CloudFormation service, you'll find there the template.
+2.  Because we have to deploy the code of our lambda, we have to configure AWS to receive it. Execute `cdk bootstrap aws://{account-number}/{region} [--profile profile-name]`. You can find the AccountID in **MyAccount** menú. This will create a bucket to upload all files.
+3.  Execute `cdk deploy [--profile profile-name]`.
+4.  You will have to confirm the resources that you're going to deploy, specially related to the security.
+5.  If you go to AWS Console and open CloudFormation service, you'll find there the template.
 
 ## Troubleshotting
 
