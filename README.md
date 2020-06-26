@@ -1,29 +1,35 @@
-# README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+# Welcome to External API Call project!
 
-### What is this repository for? ###
+This is a project that generate a **CloudFormation** template and deploy it using **AWS CDK** (AWS Cloud Development Kit)
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Let's start to configure your environment!
 
-### How do I get set up? ###
+## Prerequisites
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+To work with AWS CDK, you must have an AWS account and credentials and have installed Node.js (v10.3 or later) and the AWS CDK Toolkit.
 
-### Contribution guidelines ###
+If you already have Node.js, installl the AWS CDK Toolkit:
 
-* Writing tests
-* Code review
-* Other guidelines
+    npm install -g aws-cdk  
 
-### Who do I talk to? ###
+Test the installation by issuing `cdk --version`.
 
-* Repo owner or admin
-* Other community or team contact
+You also need TypeScript itself. If you don't already have it, you can install it using `npm`.
+
+    npm install -g typescript
+
+Check if you have the AWS CLI installed and configured.
+
+#### Tip
+If you have the [AWS CLI](https://aws.amazon.com/cli/) installed, the simplest way to set up your workstation with your AWS credentials is to open a command prompt and type:
+
+    aws configure
+
+## CDK Useful commands
+*  `npm run build` compile typescript to js
+*  `npm run watch` watch for changes and compile
+*  `npm run test` perform the jest unit tests
+*  `cdk deploy` deploy this stack to your default AWS account/region
+*  `cdk diff` compare deployed stack with current state
+*  `cdk synth` emits the synthesized CloudFormation template
