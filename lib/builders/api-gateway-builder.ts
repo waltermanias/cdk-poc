@@ -1,5 +1,14 @@
 import * as cdk from '@aws-cdk/core'
-import { RestApi, EndpointType, MockIntegration, LambdaIntegration } from '@aws-cdk/aws-apigateway'
+import {
+  RestApi,
+  EndpointType,
+  MockIntegration,
+  LambdaIntegration,
+  Cors,
+  Model,
+  JsonSchemaType,
+  RequestValidator,
+} from '@aws-cdk/aws-apigateway'
 import { LambdaBuilder } from './lambda-builder'
 export class ApiGatewayBuilder {
   constructor(private scope: cdk.Construct, private props?: cdk.StackProps) {}
@@ -28,11 +37,44 @@ export class ApiGatewayBuilder {
 
     // 2. Create the resource's name
     const rootResource = api.root.addResource('verify-breached-mail-account')
+    rootResource.addCorsPreflight({
+      allowOrigins: Cors.ALL_ORIGINS,
+      allowMethods: Cors.ALL_METHODS,
+      allowHeaders: Cors.DEFAULT_HEADERS,
+    })
+
     rootResource.addMethod(
       'POST',
       new LambdaIntegration(lambda, {
         proxy: true,
-      })
+      }),
+      {
+        requestValidator: new RequestValidator(this.scope, 'apg-body-validator', {
+          restApi: api,
+          requestValidatorName: 'Validate body',
+          validateRequestBody: true,
+          validateRequestParameters: false,
+        }),
+        requestModels: {
+          'application/json': new Model(this.scope, '_BreachedMailAccountRequestModel', {
+            modelName: 'BreachedMailAccountRequestModel',
+            contentType: 'application/json',
+            restApi: api,
+            schema: {
+              type: JsonSchemaType.OBJECT,
+              properties: {
+                email: {
+                  type: JsonSchemaType.STRING,
+                },
+                name: {
+                  type: JsonSchemaType.STRING,
+                },
+              },
+              required: ['email', 'name'],
+            },
+          }),
+        },
+      }
     )
   }
 }
