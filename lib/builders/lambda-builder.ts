@@ -18,6 +18,7 @@ export class LambdaBuilder {
       environment: {
         API_KEY: config.apiKey,
         TABLE_NAME: config.DynamoDB.tableName,
+        API_ENDPOINT: config.apiEndpoint,
       },
       role: new Role(this.scope, 'LambdaRole', {
         roleName: 'VerifyBreachedMailAccountRole',

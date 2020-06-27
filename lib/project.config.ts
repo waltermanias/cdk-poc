@@ -5,6 +5,7 @@ export const config = {
   restApiDescription: '',
   restApiStageName: 'prod',
   bucketName: 'breached-mail-account-reports',
+  apiEndpoint: 'https://aa3ivofyag.execute-api.us-west-1.amazonaws.com/prod/api/v3/breachedaccount', // Without the last slash
   apiKey: 'XXXXXXXXXXXXXXXXXXXXXX',
   SES: {
     to: 'wmanias@gmail.com',
