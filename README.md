@@ -33,6 +33,10 @@ To deploy the project, you must run the next commands.
 - `npm install` install all dependencies
 - The Lambda function has to be deployed with `node_modules` folder. Open a terminal and navigate to the next folder `/lib/lambda` and run `npm install`.
 
+## Project configuration
+
+You can customize some project variables. Check the file located at `lib/project.config.ts`.
+
 ## Deploy resources to AWS
 
 The deploy process is very streightforward. Just run the next command:
