@@ -34,8 +34,12 @@ If you have the [AWS CLI](https://aws.amazon.com/cli/) installed, the simplest w
 
 To deploy the project, you must run the next commands.
 
-- `npm install` install all dependencies
-- The Lambda function has to be deployed with `node_modules` folder. Open a terminal and navigate to the next folder `/lib/lambda` and run `npm install`.
+- Open a terminal, navigate to the root project and run `npm install`. This command will install all project dependencies.
+
+Now, we're going to install the lambdas dependencies because lambda functions must be uploaded with its package dependencies.
+
+- Open a terminal, nagigate to `/lib/lambdas/create-request` folder and run `npm install`.
+- Open another terminal and navigate to `/lib/lambdas/stream-processor` folder and run `npm install`.
 
 ## Project configuration
 

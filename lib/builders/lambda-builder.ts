@@ -1,6 +1,7 @@
 import * as path from 'path'
+
 import * as cdk from '@aws-cdk/core'
-import { Function, Runtime, Code, LayerVersion } from '@aws-cdk/aws-lambda'
+import { Function, Runtime, Code } from '@aws-cdk/aws-lambda'
 import { Role, ServicePrincipal, ManagedPolicy, PolicyDocument, PolicyStatement, Effect } from '@aws-cdk/aws-iam'
 
 import { config } from '../project.config'
@@ -9,23 +10,14 @@ export class LambdaBuilder {
   constructor(private scope: cdk.Construct, private props?: cdk.StackProps) {}
 
   build(): Function {
-    const layer = new LayerVersion(this.scope, 'HTMLToPDFLambdaLayer', {
-      code: Code.fromAsset(path.join(__dirname, '../lambda-layer')),
-      description: 'Layer to support pdf converter.',
-      layerVersionName: 'HTMLToPDFLambdaLayer',
-    })
-
     const lambda = new Function(this.scope, 'Lambda', {
       functionName: 'VerifyBreachedMailAccountFunction',
       runtime: Runtime.NODEJS_12_X,
       handler: 'index.handler',
-      code: Code.fromAsset(path.join(__dirname, '../lambda')),
+      code: Code.fromAsset(path.join(__dirname, '../lambdas/create-request')),
       environment: {
         API_KEY: config.apiKey,
-        BUCKET_NAME: config.bucketName,
-        EMAIL_TO: config.SES.to,
-        EMAIL_FROM: config.SES.from,
-        SES_REGION: config.SES.region,
+        TABLE_NAME: config.DynamoDB.tableName,
       },
       role: new Role(this.scope, 'LambdaRole', {
         roleName: 'VerifyBreachedMailAccountRole',
@@ -33,27 +25,21 @@ export class LambdaBuilder {
         managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole')],
         assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
         inlinePolicies: {
-          S3Permissions: new PolicyDocument({
+          DynamoDBPermissions: new PolicyDocument({
             statements: [
               new PolicyStatement({
-                actions: ['s3:PutObject'],
+                actions: ['dynamodb:PutItem'],
                 effect: Effect.ALLOW,
-                resources: [`arn:aws:s3:::${config.bucketName}/*`],
-              }),
-            ],
-          }),
-          SESPermissions: new PolicyDocument({
-            statements: [
-              new PolicyStatement({
-                actions: ['ses:SendEmail'],
-                effect: Effect.ALLOW,
-                resources: ['*'],
+                resources: [
+                  `arn:aws:dynamodb:${config.DynamoDB.region || config.region}:${config.accountId}:table/${
+                    config.DynamoDB.tableName
+                  }`,
+                ],
               }),
             ],
           }),
         },
       }),
-      layers: [layer],
       timeout: cdk.Duration.seconds(10),
     })
     return lambda

@@ -2,7 +2,11 @@
 !jest.config.js
 
 !/lib/lambda/*.js
-/lib/lambda/test.js
+!/lib/lambdas/create-request/*.js
+!/lib/lambdas/stream-processor/*.js
+/lib/lambdas/stream-processor/test.js
+/lib/lambdas/create-request/test.js
+
 *.d.ts
 node_modules
 
