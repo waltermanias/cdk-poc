@@ -26,7 +26,7 @@ export class DynamoDBBuilder {
       stream: StreamViewType.NEW_IMAGE,
     })
 
-    // this.onCreateStreamProcessingFunction(dbTable)
+    this.onCreateStreamProcessingFunction(dbTable)
 
     return dbTable
   }
@@ -42,7 +42,7 @@ export class DynamoDBBuilder {
       functionName: 'GenerateReportForBreachedMailAccountFunction',
       runtime: Runtime.NODEJS_12_X,
       handler: 'index.handler',
-      code: Code.fromAsset(path.join(__dirname, '../lambda/stream-processor')),
+      code: Code.fromAsset(path.join(__dirname, '../lambdas/stream-processor')),
       environment: {
         BUCKET_NAME: config.bucketName,
         EMAIL_TO: config.SES.to,
@@ -83,7 +83,7 @@ export class DynamoDBBuilder {
     lambda.addEventSource(
       new DynamoEventSource(table, {
         startingPosition: StartingPosition.LATEST,
-        batchSize: 5,
+        batchSize: 2,
         bisectBatchOnError: true,
         maxBatchingWindow: Duration.seconds(10),
         retryAttempts: 5,
