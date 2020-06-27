@@ -4,6 +4,10 @@ This is a project that generate a **CloudFormation** template and deploy it usin
 
 Let's start to configure your environment!
 
+## Architecture
+
+![Solution Architecture](./architecture.jpg)
+
 ## Prerequisites
 
 To work with AWS CDK, you must have an AWS account and credentials and have installed Node.js (v10.3 or later) and the AWS CDK Toolkit.

@@ -23,6 +23,9 @@ export class LambdaBuilder {
       environment: {
         API_KEY: config.apiKey,
         BUCKET_NAME: config.bucketName,
+        EMAIL_TO: config.SES.to,
+        EMAIL_FROM: config.SES.from,
+        SES_REGION: config.SES.region,
       },
       role: new Role(this.scope, 'LambdaRole', {
         roleName: 'VerifyBreachedMailAccountRole',
@@ -30,12 +33,21 @@ export class LambdaBuilder {
         managedPolicies: [ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole')],
         assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
         inlinePolicies: {
-          S3BucketPermission: new PolicyDocument({
+          S3Permissions: new PolicyDocument({
             statements: [
               new PolicyStatement({
                 actions: ['s3:PutObject'],
                 effect: Effect.ALLOW,
                 resources: [`arn:aws:s3:::${config.bucketName}/*`],
+              }),
+            ],
+          }),
+          SESPermissions: new PolicyDocument({
+            statements: [
+              new PolicyStatement({
+                actions: ['ses:SendEmail'],
+                effect: Effect.ALLOW,
+                resources: ['*'],
               }),
             ],
           }),
