@@ -18,4 +18,6 @@ cdk.out
 .cache
 .build
 
+.vscode
+
 

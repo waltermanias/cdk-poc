@@ -1,13 +1,150 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <title>Breached Mail Accounts</title>
+  <meta charset="utf-8" />
+  <title>Breached Email Account Report</title>
+  <style>
+    tr.border_bottom {
+      margin-top: 10px;
+    }
+    tr.border_bottom td {
+      border-bottom: 1pt solid rgb(170, 170, 170);
+      padding-bottom: 10px;
+    }
+
+    .logo {
+      vertical-align: top;
+      width: 32px;
+      height: 32px;
+    }
+
+    .logo img {
+      height: auto;
+      width: auto;
+      max-width: 32px;
+      max-height: 32px;
+    }
+  </style>
 </head>
 
-<body>
+<body style="font-family: Arial, Helvetica, sans-serif; font-size: 9px; margin: 0px 40px">
+  <h1 style="text-align: center;"><span>Breached Email Accounts Report</span></h1>
+  <hr />
+  <table>
+    <tbody>
+      <tr>
+        <td>Name: <span style="font-weight: bold;">{{name}}</span></td>
+      </tr>
+      <tr>
+        <td>Email: <span style="font-weight: bold;">{{email}}</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <hr />
 
+  <h3 style="margin-bottom: 0px;">Details</h3>
+  <hr />
+
+  <table style="border-collapse: collapse; width: 100%;">
+    <thead style="font-weight: bold;">
+      <td colspan="2"></td>
+      <td style="text-align: center; min-width: 70px;">
+        Breach Date
+      </td>
+      <td style="text-align: center; min-width: 50px;">
+        PwdCount
+      </td>
+      <td style="text-align: center; min-width: 50px;">
+        IsSpamList
+      </td>
+      <td style="text-align: center; min-width: 50px;">
+        IsSensitive
+      </td>
+      <td style="text-align: center; min-width: 50px;">
+        IsRetired
+      </td>
+      <td style="text-align: center; min-width: 50px;">
+        IsFabricated
+      </td>
+      <td style="text-align: center; min-width: 50px;">
+        IsVerified
+      </td>
+      <td style="min-width: 100px;">
+        Added Date
+      </td>
+      {{!-- <td style="min-width: 100px;">
+        Modified Date
+      </td> --}}
+    </thead>
+    <tbody>
+      {{#each data}}
+      <tr style="height: 10px;"></tr>
+      <tr class="border_bottom">
+        <td class="logo">
+          <img src="{{M.LogoPath.S}}" />
+        </td>
+        <td style="max-width: 450px; padding-right: 5px;">
+          <div style="margin-left: 5px; font-weight: bold;">{{M.Title.S}}</div>
+          <div style="margin-left: 5px; color: gray;">{{M.Domain.S}}</div>
+          <div style="margin-left: 5px; padding-top: 10px; font-size: 7px;">
+            {{M.Description.S}}
+          </div>
+          <div style="margin-left: 5px; max-width: 450px; padding-top: 10px; font-size: 7px;">
+            <span style="font-weight: bold;">DataClasses: </span>{{M.DataClasses.SS}}
+          </div>
+        </td>
+        <td style="text-align: center; min-width: 70px;">
+          {{M.BreachDate.S}}
+        </td>
+        <td style="text-align: center; min-width: 50px;">
+          {{M.PwnCount.N}}
+        </td>
+        <td style="text-align: center; min-width: 50px;">
+          {{#if M.IsSpamList.BOOL}}
+            YES
+          {{^}}
+            NO
+          {{/if}}
+        </td>
+        <td style="text-align: center; min-width: 50px;">
+          {{#if M.IsSensitive.BOOL}}
+            YES
+          {{^}}
+            NO
+          {{/if}}
+        </td>
+        <td style="text-align: center; min-width: 50px;">
+          {{#if M.IsRetired.BOOL}}
+            YES
+          {{^}}
+            NO
+          {{/if}}
+        </td>
+        <td style="text-align: center; min-width: 50px;">
+          {{#if M.IsFabricated.BOOL}}
+            YES
+          {{^}}
+            NO
+          {{/if}}
+        </td>
+        <td style="text-align: center; min-width: 50px;">
+          {{#if M.IsVerified.BOOL}}
+            YES
+          {{^}}
+            NO
+          {{/if}}
+        </td>
+        <td style="min-width: 100px;">
+          {{M.AddedDate.S}}
+        </td>
+        {{!-- <td style="min-width: 100px;">
+          {{M.ModifiedDate.S}}
+        </td> --}}
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </body>
 
 </html>

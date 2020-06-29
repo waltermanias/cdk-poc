@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+    "string-strip-html": "^4.5.0",
     "time-stamp": "^2.2.0",
     "uuid": "^8.2.0"
   }
