@@ -75,7 +75,7 @@ export class DynamoDBBuilder {
           }),
         },
       }),
-      timeout: cdk.Duration.seconds(15),
+      timeout: cdk.Duration.seconds(30),
       layers: [layer],
     })
 
