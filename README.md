@@ -41,9 +41,26 @@ Now, we're going to install the lambdas dependencies because lambda functions mu
 - Open a terminal, nagigate to `/lib/lambdas/create-request` folder and run `npm install`.
 - Open another terminal and navigate to `/lib/lambdas/stream-processor` folder and run `npm install`.
 
+## Configure Key Pair for CloudFront distribution
+
+It's very important that you generate a Key Pair and save them into a safe place. You can follow the next steps to generate them:
+
+1. Log in into AWS Console using root credentials.
+2. In your user name, go to "My Security Credentials".
+3. Expand "CloudFront key pairs".
+4. Click on "Create New Key Pair".
+5. Download the private and public key and place take note of Access Key ID showed in the Console.
+6. SAVE THEM INTO A SAFE PLACE.
+
 ## Project configuration
 
-You can customize some project variables. Check the file located at `lib/project.config.ts`.
+You must customize the project variables. Check the file located at `lib/project.config.ts`.
+
+**IMPORTANT!** Please customize CloudFront Distribution following the next steps:
+
+1. Open in a Notepad or Writepad the .pem file that its name starts with pk.
+2. Use the function "Replace all" to replace **\n** (enter symbol) with **\\n** (escaped enter symbol).
+3. Copy text and paste it into the key **cloudFormation.privateKey**.
 
 ## Deploy resources to AWS
 
@@ -70,3 +87,9 @@ The deploy process is very streightforward. Just run the next command:
 - `cdk deploy` deploy this stack to your default AWS account/region
 - `cdk diff` compare deployed stack with current state
 - `cdk synth` emits the synthesized CloudFormation template
+
+## Improvements
+
+- Move all API Keys and secrets to AWS Secret Manager.
+- To reduce service cost (CloudFormation+S3), you can attach the file into the email.
+- If you have a lot of request of the same email account, you can implement Dynamo DAX to improve the response.

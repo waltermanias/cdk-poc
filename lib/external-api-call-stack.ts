@@ -15,10 +15,10 @@ export class ExternalApiCallStack extends cdk.Stack {
     // 2. Build S3 Bucket
     const bucket = new S3BucketBuilder(this, props).build()
 
-    // 3. Build DynamoDB table
-    new DynamoDBBuilder(this, props).build()
+    // 3. Build Cloudfront Distribution
+    const cfDistribution = new CloudfrontBuilder(this, props).build(bucket)
 
-    // 4. Build Cloudfront Distribution
-    new CloudfrontBuilder(this, props).build(bucket)
+    // 4. Build DynamoDB table
+    new DynamoDBBuilder(this, props).build(cfDistribution.domainName)
   }
 }

@@ -12,7 +12,7 @@ import { Duration } from '@aws-cdk/core'
 export class DynamoDBBuilder {
   constructor(private scope: cdk.Construct, private props?: cdk.StackProps) {}
 
-  build(): Table {
+  build(cloudFrontDistributionUrl: string): Table {
     const dbTable = new Table(this.scope, 'DynamoDBTable', {
       tableName: config.DynamoDB.tableName,
       partitionKey: {
@@ -26,12 +26,12 @@ export class DynamoDBBuilder {
       stream: StreamViewType.NEW_IMAGE,
     })
 
-    this.onCreateStreamProcessingFunction(dbTable)
+    this.onCreateStreamProcessingFunction(dbTable, cloudFrontDistributionUrl)
 
     return dbTable
   }
 
-  private onCreateStreamProcessingFunction(table: Table): Function {
+  private onCreateStreamProcessingFunction(table: Table, cloudFrontDistributionUrl: string): Function {
     const layer = new LayerVersion(this.scope, 'HTMLToPDFLambdaLayer', {
       code: Code.fromAsset(path.join(__dirname, '../lambda-layer')),
       description: 'Layer to support pdf converter.',
@@ -48,6 +48,9 @@ export class DynamoDBBuilder {
         EMAIL_TO: config.SES.to,
         EMAIL_FROM: config.SES.from,
         SES_REGION: config.SES.region || config.region,
+        CF_ACCESS_KEY_ID: config.cloudFormation.accessKeyID,
+        CF_PRIVATE_KEY: config.cloudFormation.privateKey,
+        CF_DOMAIN: cloudFrontDistributionUrl,
       },
       role: new Role(this.scope, 'StreamProcessorLambdaRole', {
         roleName: 'GenerateReportForBreachedMailAccountRole',
