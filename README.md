@@ -1,6 +1,6 @@
 # Welcome to External API Call project!
 
-This is a project that generate a **CloudFormation** template and deploy it using **AWS CDK** (AWS Cloud Development Kit)
+This is a project that generates a **CloudFormation** template and deploy it using **AWS CDK** (AWS Cloud Development Kit)
 
 Let's start to configure your environment!
 
@@ -12,11 +12,11 @@ Let's start to configure your environment!
 
 To work with AWS CDK, you must have an AWS account and credentials and have installed Node.js (v10.3 or later) and the AWS CDK Toolkit.
 
-If you already have Node.js, installl the AWS CDK Toolkit:
+If you already have Node.js, install the AWS CDK Toolkit:
 
     npm install -g aws-cdk
 
-Test the installation by issuing `cdk --version`.
+Test the installation by using the next command `cdk --version`.
 
 You also need TypeScript itself. If you don't already have it, you can install it using `npm`.
 
@@ -67,7 +67,7 @@ You must customize the project variables. Check the file located at `lib/project
 The deploy process is very streightforward. Just run the next command:
 
 1.  Open a terminal and navigate to the project root.
-2.  Because we have to deploy the code of our lambda, we have to configure AWS to receive it. Execute `cdk bootstrap aws://{account-number}/{region} [--profile profile-name]`. You can find the AccountID in **MyAccount** menÃº. This will create a bucket to upload all files.
+2.  Because we have to deploy the code of our lambda, we have to configure AWS to receive it. Execute `cdk bootstrap aws://{account-number}/{region} [--profile profile-name]`. You can find the AccountID in **MyAccount** menú. This will create a bucket to upload all files.
 3.  Execute `cdk deploy [--profile profile-name]`.
 4.  You will have to confirm the resources that you're going to deploy, specially related to the security.
 5.  If you go to AWS Console and open CloudFormation service, you'll find there the template.
@@ -93,3 +93,4 @@ The deploy process is very streightforward. Just run the next command:
 - Move all API Keys and secrets to AWS Secret Manager.
 - To reduce service cost (CloudFormation+S3), you can attach the file into the email.
 - If you have a lot of request of the same email account, you can implement Dynamo DAX to improve the response.
+- You can improve your lambda response using warm start.
